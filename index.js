@@ -1,4 +1,59 @@
 /* Your Code Here */
+let createEmployeeRecord = function(arr){
+    return {
+        firstName: arr[0],
+        familyName: arr[1],
+        title: arr[2],
+        payPerHour: arr[3],
+        timeInEvents: [],
+        timeOutEvents: []
+    }
+}
+
+let createEmployeeRecords = function(arr){
+    return arr.map(createEmployeeRecord)
+}
+
+let createTimeInEvent = function(dateStamp){
+    let [date, time] = dateStamp.split(' ')
+
+    this.timeInEvents.push({
+        type: "TimeIn",
+        hour: parseInt(time, 10),
+        date,
+    })
+
+    return this
+}
+
+let createTimeOutEvent = function(dateStamp){
+    let [date, time] = dateStamp.split(' ')
+    
+    this.timeOutEvents.push({
+        type: "TimeOut",
+        hour: parseInt(time, 10),
+        date,
+    })
+
+    return this
+}
+
+let hoursWorkedOnDate = function(soughtDate){
+    let inEvent = this.timeInEvents.find(function(e){
+        return e.date === soughtDate
+    })
+
+    let outEvent = this.timeOutEvents.find(function(e){
+        return e.date === soughtDate
+    })
+
+    return (outEvent.hour - inEvent.hour) / 100
+}
+
+let wagesEarnedOnDate = function(dateSought){
+    let wage = hoursWorkedOnDate.call(this, dateSought) * this.payPerHour
+    return parseFloat(wage.toString())
+}
 
 /*
  We're giving you this function. Take a look at it, you might see some usage
@@ -19,4 +74,16 @@ let allWagesFor = function () {
     }.bind(this), 0) // <== Hm, why did we need to add bind() there? We'll discuss soon!
 
     return payable
+}
+
+let findEmployeeByFirstName = function(arr, name){
+    return arr.find(function(rec){
+        return rec.firstName === name
+    })
+}
+
+let calculatePayroll = function(arr){
+    return arr.reduce(function(memo, rec){
+        return memo + allWagesFor.call(rec)
+    }, 0)
 }
