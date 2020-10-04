@@ -53,17 +53,15 @@ const createTimeOutEvent = function(dateStamp){
 const hoursWorkedOnDate = function(dateSought){
   const dateIn = this.timeInEvents.find(event => event.date === dateSought );
   const dateOut = this.timeOutEvents.find(event => event.date === dateSought );
-  const clockedIn = dateIn.hour;
-  const clockedOut = dateOut.hour;
 
-  return (clockedOut - clockedIn) / 100;
+  return (dateOut.hour - dateIn.hour) / 100;
 };
 
 
 const wagesEarnedOnDate = function(dateStamp){
   const wagesEarned = hoursWorkedOnDate.call(this, dateStamp) * this.payPerHour
 
-  return parseFloate(wagesEarned)
+  return parseFloat(wagesEarned)
 };
 
 
