@@ -61,9 +61,9 @@ const hoursWorkedOnDate = function(dateSought){
 
 
 const wagesEarnedOnDate = function(dateStamp){
-  const hoursWorked = hoursWorkedOnDate.call(this, dateStamp)
+  const wagesEarned = hoursWorkedOnDate.call(this, dateStamp) * this.payPerHour
 
-  return this.payPerHour * hoursWorked
+  return parseFloate(wagesEarned)
 };
 
 
@@ -87,6 +87,6 @@ const findEmployeeByFirstName = function(srcArray, firstName){
 
 const calculatePayroll = function(employeeRecords){
   return employeeRecords.reduce( (memo, employee) => {
-    return memo + allWagesFor.apply(employee)
+    return memo + allWagesFor.call(employee)
   }, 0)
 }
